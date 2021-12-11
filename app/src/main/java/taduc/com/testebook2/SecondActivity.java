@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.widget.Toast;
 
 public class SecondActivity extends AppCompatActivity {
 
@@ -29,5 +30,9 @@ public class SecondActivity extends AppCompatActivity {
             Intent intent = new Intent(SecondActivity.this, MainActivity.class);
             startActivity(intent);
         }
+        //receive data from fragment 1
+        Intent intent = getIntent();
+        //adjust action bar title
+        getSupportActionBar().setTitle(intent.getStringExtra("itemPosition"));
     }
 }

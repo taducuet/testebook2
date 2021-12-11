@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setTitle("Harry Potter và hòn đá phù thuỷ");
         //Fragment
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
             //Add Fragment 2
             Fragment2 fragment2 = new Fragment2();
             fragmentTransaction.replace(R.id.fragmentContainerView4,fragment2);
-            //send bundle
+            //send bundle to fragment 1
             bundle.putString("mode","landscape");
             fragment1.setArguments(bundle);
             //receive data from fragment 1
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             //portrait mode
             Fragment1 fragment1 = new Fragment1();
             fragmentTransaction.replace(R.id.fragmentContainerView1,fragment1);
-            //send bundle
+            //send bundle to fragment 1
             bundle.putString("mode","portrait");
             fragment1.setArguments(bundle);
         }
