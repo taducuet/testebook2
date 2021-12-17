@@ -34,5 +34,6 @@ public class SecondActivity extends AppCompatActivity {
         Intent intent = getIntent();
         //adjust action bar title
         getSupportActionBar().setTitle(intent.getStringExtra("itemPosition"));
+
     }
 }

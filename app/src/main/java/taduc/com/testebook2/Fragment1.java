@@ -1,7 +1,6 @@
 package taduc.com.testebook2;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +9,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
+
+import java.util.Objects;
 
 public class Fragment1 extends Fragment {
     ListView pdfListView;
@@ -60,18 +59,18 @@ public class Fragment1 extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view2, int i, long l) {
                 String item = pdfListView.getItemAtPosition(i).toString();
-                view2.setBackgroundColor(Color.rgb(64,224,208));
+
                 //receive bundle from MainActivity
                 Bundle bundle = getArguments();
-
-                if(bundle.getString("mode").toString() == "portrait") {
+                assert bundle != null;
+                if(Objects.equals(bundle.getString("mode"),"portrait")) {
                     //portrait
                     Intent intent = new Intent(getActivity().getApplicationContext(), SecondActivity.class);
                     intent.putExtra("pdfFileName", item);
                     intent.putExtra("itemPosition",pdfListView.getItemAtPosition(i).toString());
                     startActivity(intent);
                 }
-                else if (bundle.getString("mode").toString() == "landscape"){
+                else if (Objects.equals(bundle.getString("mode"),"landscape")){
                     //landscape
                     //send data from frag1 to main activity
                     Intent intent = new Intent(getActivity().getApplicationContext(),MainActivity.class);
