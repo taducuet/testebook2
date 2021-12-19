@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="About">
+        <menu>
+            <item android:title="About us"
+                android:id="@+id/about"/>
+            <item android:title="Email"
+                android:id="@+id/email"/>
+            <item android:title="Github"
+                android:id="@+id/github"/>
+        </menu>
+    </item>
+    <item android:title="Read More Ebook"
+        android:id="@+id/read_more"/>
+    <item android:title="Dark Mode"
+        android:id="@+id/dark"
+        app:showAsAction="always"
+        android:icon="@drawable/dark"/>
+</menu>
