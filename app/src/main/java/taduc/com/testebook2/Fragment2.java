@@ -1,7 +1,14 @@
 package taduc.com.testebook2;
 
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.style.BackgroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -9,13 +16,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-
-import com.github.barteksc.pdfviewer.PDFView;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Objects;
+
+import top.defaults.colorpicker.ColorPickerPopup;
 
 public class Fragment2 extends Fragment {
     TextView txt;
@@ -25,7 +34,6 @@ public class Fragment2 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_2, container, false);
         txt = (TextView) view.findViewById(R.id.textView);
-
         //receive bundle (landscape) from main activity
         Bundle bundle = getArguments();
         loadChapter("Chapter 1.txt");
@@ -85,6 +93,134 @@ public class Fragment2 extends Fragment {
         return view;
     }
 
+
+    //Settings menu bar
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.second_menu, menu);
+        super.onCreateOptionsMenu(menu,inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.size:
+                AlertDialog.Builder text_size = new AlertDialog.Builder(getContext());
+                text_size.setTitle("Text Size");
+                String[] items = {"Large","Medium","Small"};
+                int checkedItem = 0;
+                text_size.setSingleChoiceItems(items, checkedItem, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case 0:
+                                txt.setTextSize(40);
+                                break;
+                            case 1:
+                                txt.setTextSize(20);
+                                break;
+                            case 2:
+                                txt.setTextSize(10);
+                                break;
+                        }
+                    }
+                });
+                text_size.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                //Tạo Dialog
+                AlertDialog alertDialog = text_size.create();
+                //Hiển thị
+                alertDialog.show();
+                break;
+
+            case R.id.font:
+                AlertDialog.Builder font = new AlertDialog.Builder(getContext());
+                font.setTitle("Font");
+                String[] items_font = {"Helvetica Neue","Iciel Simplifica","TUV Benchmark","Default"};
+                int checkedItem_font = 0;
+                font.setSingleChoiceItems(items_font, checkedItem_font, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case 0:
+                                Typeface typeface = Typeface.createFromAsset(getActivity().getAssets(),"font/helveticaneue.ttf");
+                                txt.setTypeface(typeface);
+                                break;
+                            case 1:
+                                Typeface typeface1 = Typeface.createFromAsset(getActivity().getAssets(),"font/icielsimplifica.ttf");
+                                txt.setTypeface(typeface1);
+                                break;
+                            case 2:
+                                Typeface typeface2 = Typeface.createFromAsset(getActivity().getAssets(),"font/tuvbenchmark.ttf");
+                                txt.setTypeface(typeface2);
+                                break;
+                            case 3:
+                                txt.setTypeface(Typeface.SERIF);
+                                break;
+                        }
+                    }
+                });
+                font.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+                //Tạo Dialog
+                AlertDialog alertDialog1 = font.create();
+                //Hiển thị
+                alertDialog1.show();
+                break;
+
+            case R.id.color:
+                new ColorPickerPopup.Builder(getActivity()).initialColor(Color.RED)
+                        .enableBrightness(true)
+                        .enableAlpha(true)
+                        .okTitle("Choose")
+                        .cancelTitle("Cancel")
+                        .showIndicator(true)
+                        .showValue(true)
+                        .build()
+                        .show(
+                            new ColorPickerPopup.ColorPickerObserver(){
+                                @Override
+                                public void onColorPicked(int color) {
+                                    txt.setTextColor(color);
+                                }
+                            });
+                break;
+
+            case R.id.bgcolor:
+                new ColorPickerPopup.Builder(getActivity()).initialColor(Color.RED)
+                        .enableBrightness(true)
+                        .enableAlpha(true)
+                        .okTitle("Choose")
+                        .cancelTitle("Cancel")
+                        .showIndicator(true)
+                        .showValue(true)
+                        .build()
+                        .show(
+                                new ColorPickerPopup.ColorPickerObserver(){
+                                    @Override
+                                    public void onColorPicked(int color) {
+                                        getView().setBackgroundColor(color);
+                                    }
+                                });
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     //Function call chapter name
     private String loadChapter(String s) {

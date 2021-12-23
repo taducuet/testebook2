@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="Settings">
+        <menu>
+            <item android:title="Text Size"
+                android:id="@+id/size"/>
+            <item android:title="Text Font"
+                android:id="@+id/font"/>
+            <item android:title="Text Color"
+                android:id="@+id/color"/>
+            <item android:title="Background Color"
+                android:id="@+id/bgcolor"/>
+        </menu>
+    </item>
+</menu>

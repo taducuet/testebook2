@@ -1,12 +1,20 @@
 package taduc.com.testebook2;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 public class SecondActivity extends AppCompatActivity {
@@ -34,6 +42,5 @@ public class SecondActivity extends AppCompatActivity {
         Intent intent = getIntent();
         //adjust action bar title
         getSupportActionBar().setTitle(intent.getStringExtra("itemPosition"));
-
     }
 }
